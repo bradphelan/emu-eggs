@@ -9,7 +9,7 @@ with the ability to specify mapping in individual files
 with the filename as the trigger keyword. You create 
 ftplugin directories for filetypes as normal in vim
 and then add a file called bundle.vim to the directory.
-The *bundle.vim** file only needs to have a single line
+The **bundle.vim** file only needs to have a single line
 
   FSnippets
 
@@ -103,3 +103,9 @@ Standard bracketing and quoting is also handled by the library
 
 all the expansions work nicely nested so you can write lispy code
 and each tab will jump you out of and to the end of the current bracket block
+
+Important
+=========
+
+Make sure you have the SnippetsEmu plugin loaded on
+the path before this plugin is loaded
