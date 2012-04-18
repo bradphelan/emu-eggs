@@ -49,12 +49,41 @@ endf
 " Give a directory name load all the
 " snippets files *.bdl in that directory.
 function! FSnippets(dir)
+    call StandardSnippets()
     let s:ft = glob(a:dir . '/*.bdl')
     let s:fl = split(s:ft, "\<NL>")
     for f in s:fl
         call FSnippet(f)
     endfor
 endf
+
+" Add standard snippets with imaps. The
+" trick is to imap a symbol into a text trigger
+" and then tab it out to activate snippets.
+" the snippet then actives a <BS>. However
+" to ensure that we can insert brackets with
+" no gaps we perform the following expansions in
+" order
+"
+"   foo[
+"   foo sbracket<tab>
+"   foo[<{}>]<{}>
+"
+" notice we add in a space after foo then
+" consume it with <BS> later.
+function! StandardSnippets()
+  Snippet dquote <BS>"<{}>"<{}>
+  Snippet squote <BS>'<{}>'<{}>
+  Snippet rbracket <BS>(<{}>)<{}>
+  Snippet sbracket <BS>[<{}>]<{}>
+  Snippet bracket <BS>{<{}>}<{}>
+endf
+
+imap "" <space>dquote<tab>
+imap '' <space>squote<tab>
+imap ( <space>rbracket<tab>
+imap [ <space>sbracket<tab>
+imap { <space>bracket<tab>
 
 " A command to load snippets from the same
 " directory as the sourced script. This command
@@ -67,4 +96,6 @@ endf
 "
 "
 com! FSnippets call FSnippets(expand("<sfile>:h"))
+
+
 
