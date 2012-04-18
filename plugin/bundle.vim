@@ -79,11 +79,15 @@ function! StandardSnippets()
   Snippet bracket <BS>{<{}>}<{}>
 endf
 
-imap "" <space>dquote<tab>
-imap '' <space>squote<tab>
-imap ( <space>rbracket<tab>
-imap [ <space>sbracket<tab>
-imap { <space>bracket<tab>
+function! MakeEggMap(trigger, secondary_trigger)
+  exec "imap " . a:trigger . " \<space\>" . a:secondary_trigger . g:snippetsEmu_key
+endf
+
+call MakeEggMap('""', "dquote")
+call MakeEggMap("''", "squote")
+call MakeEggMap("(", "rbracket")
+call MakeEggMap("[", "sbracket")
+call MakeEggMap("{", "bracket")
 
 " A command to load snippets from the same
 " directory as the sourced script. This command
